@@ -36,6 +36,18 @@ class users_controller extends base_controller {
         $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
         echo "You're signed up (user_id = $user_id)";
     }
+    
+    public function login() {
+
+        # Setup view
+        $this->template->content = View::instance('v_users_login');
+        $this->template->title   = "Login";
+
+        # Render template
+        echo $this->template;
+
+    }
+
 
 } # eoc
 
