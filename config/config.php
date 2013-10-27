@@ -33,7 +33,7 @@ A email designated to receive messages from the server. Examples:
 
 # Default DB name for this app
 	//define('DB_NAME', "myapp_com"); ### default sample
-        define('DB_NAME', "p2_hanhan_biz"); 
+        define('DB_NAME', "hanhanbi_p2_hanhan_biz"); 
 
 # Timezone
 	define('TIMEZONE', 'America/New_York');
