@@ -42,13 +42,17 @@ class users_controller extends base_controller {
         echo "You're signed up (user_id = $user_id)";
     }
     
-    public function login() {
+    # Default $error to be NULL so no warnings if $error is blank (no errors)
+    public function login($error = NULL) {
 
         # Setup view
         $this->template->content = View::instance('v_users_login');
         $this->template->title   = "Login";
 
-        # Render template
+        # Pass (error) data to the view
+        $this->template->content->error = $error;        
+        
+        # Render template/view
         echo $this->template;
 
     }
@@ -61,7 +65,19 @@ class users_controller extends base_controller {
         # Hash submitted password so we can compare it against one in the db
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
-        # Search the db for this email and password
+        # Search the DB for matching email
+        $emailQuery = "SELECT email
+                       FROM users
+                       WHERE email = '".$_POST['email']."'";
+                       
+        $emailFound = DB::instance(DB_NAME)->select_field($emailQuery);
+        
+        if (!$emailFound) {
+            $error = 'Invalid Email';
+            Router::redirect("/users/login/$error");
+        }
+        
+        # Search the DB for this email and password
         # Retrieve the token if it's available
         $q = "SELECT token 
               FROM users 
@@ -73,8 +89,11 @@ class users_controller extends base_controller {
         # If we didn't find a matching token in the database, it means login failed
         if (!$token) {
             # Send them back to the login page
-            Router::redirect("/users/login/");
-            # But if we did, login succeeded! 
+            #Router::redirect("/users/login/");
+            # But if we did, login succeeded!
+            # Note the addition of the PARAMETER "error"
+            $error = 'Invalid Password';
+            Router::redirect("/users/login/$error");             
         }
         else {
             /* 
