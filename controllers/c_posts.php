@@ -98,8 +98,10 @@ class posts_controller extends base_controller {
         # Store our results (an array) in the variable $connections
         $connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
 
+        #echo $this->user->role;
+        
         # Pass data (users and connections) to the view
-        $this->template->content->users       = $users;
+        $this->template->content->users_list  = $users;
         $this->template->content->connections = $connections;
 
         # Render the view
