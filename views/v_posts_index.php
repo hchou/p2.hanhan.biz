@@ -1,8 +1,10 @@
+<h1>Posts from Users You are Following</h1>
+
 <?php foreach($posts as $post): ?>
 
 <article>
 
-    <h1><?=$post['first_name']?> <?=$post['last_name']?> posted:</h1>
+    <h3><?=$post['first_name']?> <?=$post['last_name']?> posted:</h3>
 
     <p><?=$post['content']?></p>
 
