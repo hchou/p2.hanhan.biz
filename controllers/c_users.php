@@ -143,11 +143,25 @@ class users_controller extends base_controller {
 
         # Setup view
         $this->template->content = View::instance('v_users_profile');
-        $this->template->title   = "Profile of".$this->user->first_name;
+        $this->template->title   = "Profile of" . $this->user->first_name;
 
         # Render template
         echo $this->template;
     }
+    
+    public function delete($user_id_followed) {
+    
+        #echo $user_id_followed;
+    
+        # Delete this user
+        $where_condition = 'WHERE user_id = '.$user_id_followed;
+        DB::instance(DB_NAME)->delete('users', $where_condition);
+    
+        # Send them back
+        Router::redirect("/posts/users");
+    
+    } 
+    
     
 } # eoc (End of Class)
 
