@@ -9,6 +9,15 @@
 	
 	<!-- Blubber CSS File -->
 	<link rel="stylesheet" type="text/css" href="/css/blubber.css">
+		
+	<!-- jquery -->
+	<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+	
+	<!-- jquery.validate -->
+	<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+
+	<!-- jquery.validate.params -->
+	<script type="text/javascript" src="/js/jquery.validate.params.js"></script>
 					
 	<!-- Controller Specific JS/CSS -->
 	<?php if(isset($client_files_head)) echo $client_files_head; ?>
