@@ -43,6 +43,18 @@ class posts_controller extends base_controller {
 
     }
     
+    public function delete($post_id) {
+    
+        # Delete this post
+        $where_condition = 'WHERE post_id = ' . $post_id;
+        DB::instance(DB_NAME)->delete('posts', $where_condition);
+    
+        # Send them back
+        Router::redirect("/posts/index");
+        
+    }     
+    
+    
     public function index() {
     
         # Set up the View
@@ -85,7 +97,8 @@ class posts_controller extends base_controller {
 
         # Build the query to get all the users
         $q = "SELECT *
-            FROM users";
+            FROM users
+            ORDER BY last_name";
 
         # Execute the query to get all the users. 
         # Store the result array in the variable $users
@@ -95,7 +108,7 @@ class posts_controller extends base_controller {
         # I.e. who are they following
         $q = "SELECT * 
             FROM users_users
-            WHERE user_id = ".$this->user->user_id;
+            WHERE user_id = " . $this->user->user_id;
 
         # Execute this query with the select_array method
         # select_array will return our results in an array and use the "users_id_followed" field as the index.
