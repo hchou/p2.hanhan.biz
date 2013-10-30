@@ -3,8 +3,8 @@ html, body {
 }
 
 body {
-    margin: 0px;
-    padding: 0px;
+    margin: 10px;
+    padding: 1px;
     background: #404040;
     font-family: 'Quicksand', sans-serif;
     font-size: 12pt;
@@ -13,8 +13,8 @@ body {
 }
 
 
-h1, h2, h3 {
-    margin: 0;
+h1, h2, h3, p, time {
+    margin: 5px;
     padding: 0;
     color: #ff8a0e;
 }
@@ -59,7 +59,7 @@ table {
     margin: 10px;
     padding: 0px;
     width: 50%;
-    border: 1px solid #33333;
+    border: 1px solid #333333;
     border-collapse: collapse;
 }
 
@@ -76,6 +76,7 @@ tr:nth-child(odd) {
 }
 
 article {
+    width: 50%;
     margin: 10px;
     border-style: solid;
     border-radius: 5px;
