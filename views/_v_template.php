@@ -4,8 +4,11 @@
 	<title><?php if(isset($title)) echo $title; ?></title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<!-- Blubber Website Icon-->
+	<!-- Blubber Website Icon -->
 	<link rel="shortcut icon" href="/images/blubber.ico">
+	
+	<!-- Blubber CSS File -->
+	<link rel="stylesheet" type="text/css" href="/css/blubber.css">
 					
 	<!-- Controller Specific JS/CSS -->
 	<?php if(isset($client_files_head)) echo $client_files_head; ?>
@@ -23,7 +26,8 @@
 
             <a href='/users/logout'>Logout</a>
             <a href='/users/profile'>My Profile</a>
-	    <a href='/posts'>Posts</a>
+	    <a href='/posts'>Read</a>
+	    <a href='/posts/add'>Add</a>
 	    <a href='/posts/users'>Users</a>
 
         <!-- Menu options for users who are not logged in -->
