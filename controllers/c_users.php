@@ -34,12 +34,13 @@ class users_controller extends base_controller {
         $_POST['token']    = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
         
         # Dump out the results of POST to see what the form submitted
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
+        #echo '<pre>';
+        #print_r($_POST);
+        #echo '</pre>';
         
         $user_id = DB::instance(DB_NAME)->insert('users', $_POST);
-        echo "You're signed up (user_id = $user_id)";
+        $error = "You're signed up. Please login";
+        Router::redirect("/users/login/$error");
     }
     
     # Default $error to be NULL so no warnings if $error is blank (no errors)
@@ -73,7 +74,7 @@ class users_controller extends base_controller {
         $emailFound = DB::instance(DB_NAME)->select_field($emailQuery);
         
         if (!$emailFound) {
-            $error = 'Invalid Email';
+            $error = 'Login Failed: Invalid Email';
             Router::redirect("/users/login/$error");
         }
         
@@ -92,7 +93,7 @@ class users_controller extends base_controller {
             #Router::redirect("/users/login/");
             # But if we did, login succeeded!
             # Note the addition of the PARAMETER "error"
-            $error = 'Invalid Password';
+            $error = 'Login Failed: Invalid Password';
             Router::redirect("/users/login/$error");             
         }
         else {
