@@ -1,10 +1,10 @@
 <h1>Users</h1>
 
-<table border="1">
+<table>
     <tr>
-        <th>First Name</th><th>Last Name</th><th>Follow</th>
+        <th>First Name</th><th>Last Name</th><th>Follow User</th>
         <?php if ($user->role < 2): ?>
-            <th>Delete</th>
+            <th>Delete User</th>
         <?php endif; ?>
     </tr>
     <?php foreach($users_list as $my_user): ?>
@@ -24,7 +24,11 @@
         
         <!-- If logged in user is an administrator, show a delete link -->
         <?php if ($user->role < 2): ?>
-            <td><a href='/users/delete/<?=$my_user['user_id'] ?>'>Delete</a></td>
+            <?php if ($user->user_id == $my_user['user_id']): ?>
+                <td>Me</td>
+            <?php else: ?>
+                <td><a href='/users/delete/<?=$my_user['user_id'] ?>'>Delete</a></td>
+            <?php endif; ?>
         <?php endif; ?>
     </tr>
     <?php endforeach; ?>
