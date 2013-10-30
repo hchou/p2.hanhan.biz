@@ -36,7 +36,10 @@ class posts_controller extends base_controller {
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
         # Quick and dirty feedback
-        echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+        #echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+        
+        # Send them back
+        Router::redirect("/posts/add");
 
     }
     
@@ -48,18 +51,19 @@ class posts_controller extends base_controller {
     
         # Query
         $q = 'SELECT 
-                posts.content,
-                posts.created,
-                posts.user_id AS post_user_id,
-                users_users.user_id AS follower_id,
-                users.first_name,
-                users.last_name
-            FROM posts
-            INNER JOIN users_users 
-                ON posts.user_id = users_users.user_id_followed
-            INNER JOIN users 
-                ON posts.user_id = users.user_id
-            WHERE users_users.user_id = '.$this->user->user_id;
+                  posts.content,
+                  posts.created,
+                  posts.user_id AS post_user_id,
+                  users_users.user_id AS follower_id,
+                  users.first_name,
+                  users.last_name
+              FROM posts
+              INNER JOIN users_users 
+                  ON posts.user_id = users_users.user_id_followed
+              INNER JOIN users 
+                  ON posts.user_id = users.user_id
+              WHERE users_users.user_id = '. $this->user->user_id .
+             'ORDER BY posts.created';
     
         # Run the query, store the results in the variable $posts
         $posts = DB::instance(DB_NAME)->select_rows($q);
