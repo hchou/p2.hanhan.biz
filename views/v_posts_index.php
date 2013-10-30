@@ -3,15 +3,21 @@
 <?php foreach($posts as $post): ?>
 
 <article>
+    <br>
+    <h3><?=$post['first_name'] ?> <?=$post['last_name']?> posted:</h3>
 
-    <h3><?=$post['first_name']?> <?=$post['last_name']?> posted:</h3>
-
-    <p><?=$post['content']?></p>
+    <p><?=$post['content'] ?></p>
 
     <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
         <?=Time::display($post['created'])?>
     </time>
+    
+    <!-- If logged in user is an administrator, show a delete link -->
+    <?php if ($user->role < 2): ?>
+        <td><a href='/posts/delete/<?=$post['post_id'] ?>'>Delete</a></td>
+    <?php endif; ?>
 
+    <br><br>
 </article>
 
 <?php endforeach; ?>
