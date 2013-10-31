@@ -181,8 +181,8 @@ class users_controller extends base_controller {
         
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
         
-        echo "user_id: " . $this->user->user_id  . "<br>";
-        echo "email:   " . $this->user->email  . "<br>";
+        #echo "user_id: " . $this->user->user_id  . "<br>";
+        #echo "email:   " . $this->user->email  . "<br>";
 
         # If the user email was updated, make sure it doesn't already exist in DB
         if ($this->user->email != $_POST['email']) {
@@ -196,8 +196,8 @@ class users_controller extends base_controller {
             
             if ($matched_user_id) {
                 $error = 'Error, email already exists';
-                echo "$error<br>";
-                #Router::redirect("/users/profile");
+                #echo "$error<br>";
+                Router::redirect("/users/profile");
             }
             
         }
