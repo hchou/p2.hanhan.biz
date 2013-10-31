@@ -14,7 +14,6 @@
         <div class='error'>
             <?php echo $error ?>.
         </div>
-        <br>
     <?php endif; ?>
     <br><br>
     <input type='submit' value='Log in'>
