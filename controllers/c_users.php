@@ -235,9 +235,12 @@ class users_controller extends base_controller {
             echo "last_name changed! <br>";
             $data['last_name'] = $_POST['last_name'];
         }
-                    
-        # Do the Database update
-        DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '" . $this->user->user_id ."'");
+        
+        # If the $data array exists then update DB
+        if ($data) {
+            # Do the Database update
+            DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '" . $this->user->user_id ."'");
+        }
         
         Router::redirect("/users/profile");
     
