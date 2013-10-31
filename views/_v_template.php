@@ -34,7 +34,6 @@
 
         <!-- Menu for users who are logged in -->
         <?php if ($user): ?>
-            <a href='/users/logout'>Logout</a>
             <a href='/users/profile'>My Profile</a>
 	    <a href='/posts'>Read</a>
 	    <a href='/posts/add'>Add</a>
@@ -51,7 +50,8 @@
     <div id='menu_right'>
 
         <?php if ($user): ?>
-	    Hello, <a href='/users/profile'><?php echo "$user->first_name $user->last_name" ?></a>
+	    Hello, <a href='/users/profile'><span id='username'><?php echo "$user->first_name $user->last_name" ?></span></a>!
+	    <a href='/users/logout'>Logout</a>
 	<?php endif; ?>
 
     </div>
