@@ -19,6 +19,22 @@ class users_controller extends base_controller {
     
     public function p_signup() {
 
+        # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+        
+        $emailQuery = "SELECT COUNT(email)
+                       FROM users
+                       WHERE email = '".$_POST['email']."'";
+                       
+        $emailFound = DB::instance(DB_NAME)->select_field($emailQuery);
+    
+        # Verify that user does not already exist, if exists assume user already signed up
+        # redirect to login screen
+        if ($emailFound > 0) {
+            $error = "User already exists, please login";
+            Router::redirect("/users/login/$error");
+        }
+    
         $_POST['created']  = Time::now();
         $_POST['modified'] = Time::now();
         unset($_POST['confirm_password']);
@@ -62,13 +78,13 @@ class users_controller extends base_controller {
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
 
         # Search the DB for matching email
-        $emailQuery = "SELECT email
+        $emailQuery = "SELECT user_id
                        FROM users
                        WHERE email = '".$_POST['email']."'";
                        
-        $emailFound = DB::instance(DB_NAME)->select_field($emailQuery);
+        $matched_user_id = DB::instance(DB_NAME)->select_field($emailQuery);
         
-        if (!$emailFound) {
+        if (!$matched_user_id) {
             $error = 'Login Failed: Invalid Email';
             Router::redirect("/users/login/$error");
         }
@@ -103,6 +119,13 @@ class users_controller extends base_controller {
             */
             setcookie("token", $token, strtotime('+1 year'), '/');
 
+            # User successfully authenticated, update last_login time.
+            $last_login = Time::now();
+            $data = Array("last_login" => $last_login);
+                        
+            # Do the Database update
+            DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '" . $matched_user_id ."'");
+            
             # Send them to the main page - or whever you want them to go
             Router::redirect("/");
         }
@@ -139,10 +162,85 @@ class users_controller extends base_controller {
 
         # Setup view
         $this->template->content = View::instance('v_users_profile');
-        $this->template->title   = "Profile of" . $this->user->first_name;
+        $this->template->title   = "Profile of " . $this->user->first_name;
 
         # Render template
         echo $this->template;
+    }
+    
+    public function p_profile_update() {
+        
+        /* Compare parameters in $_POST to that of DB
+         *     A. Proceed current password is correct
+         *     B. Update only fields that have changed
+         */
+        # Dump out the results of POST to see what the form submitted
+        
+        # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+        
+        $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
+        
+        echo "user_id: " . $this->user->user_id  . "<br>";
+        echo "email:   " . $this->user->email  . "<br>";
+
+        # If the user email was updated, make sure it doesn't already exist in DB
+        if ($this->user->email != $_POST['email']) {
+        
+            # Search the DB for matching email
+            $emailQuery = "SELECT user_id
+                           FROM users
+                           WHERE email = '" . $_POST['email'] . "'";
+                           
+            $matched_user_id = DB::instance(DB_NAME)->select_field($emailQuery);
+            
+            if ($matched_user_id) {
+                $error = 'Error, email already exists';
+                echo "$error<br>";
+                #Router::redirect("/users/profile");
+            }
+            
+        }
+        
+        # Search the DB for this email and password
+        # Retrieve the token if it's available
+        $q = "SELECT * 
+              FROM users 
+              WHERE email = '" . $this->user->email . "' 
+              AND password = '" . $_POST['password'] . "'";
+
+        $user_info = DB::instance(DB_NAME)->select_array($q, 'user_id');
+        #$connect = DB::instance(DB_NAME)->select_array($q, 'user_info');
+
+        # If $user_info doesn't exist: authentication failed
+        if (!$user_info) {
+            # Send user back to My Profile page, skip updates 
+            $error = 'Incorrect Current Password';
+            Router::redirect("/users/profile");
+        }
+
+        # Build update array
+        # Has email changed?
+        if ($_POST['email'] != $user_info[$this->user->user_id]['email']) {
+            echo "email changed! <br>";
+            $data['email'] = $_POST['email'];
+        }
+        # Has first_name changed?
+        if ($_POST['first_name'] != $user_info[$this->user->user_id]['first_name']) {
+            echo "first_name changed! <br>";
+            $data['first_name'] = $_POST['first_name'];
+        }
+        # Has last_name changed?
+        if ($_POST['last_name'] != $user_info[$this->user->user_id]['last_name']) {
+            echo "last_name changed! <br>";
+            $data['last_name'] = $_POST['last_name'];
+        }
+                    
+        # Do the Database update
+        DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = '" . $this->user->user_id ."'");
+        
+        Router::redirect("/users/profile");
+    
     }
     
     public function delete($user_id_followed) {
