@@ -16,17 +16,12 @@ class users_controller extends base_controller {
             echo $this->template;
 
     }
-
-    public function hello_world() {
-        echo "HELLO WORLD!";
-    }
-    
     
     public function p_signup() {
 
         $_POST['created']  = Time::now();
         $_POST['modified'] = Time::now();
-        
+        unset($_POST['confirm_password']);
         # Encrypt the password
         $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);
         
