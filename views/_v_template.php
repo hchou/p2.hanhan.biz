@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/blubber.css">
 		
 	<!-- jquery -->
-	<script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	
 	<!-- jquery.validate -->
 	<script type="text/javascript" src="/js/jquery.validate.min.js"></script>
@@ -26,13 +26,14 @@
 
 <body>  
 
-    <div id='menu'>
+    <div id='menu_left'>
 
+    <img src="/images/blubber.png" alt="Pulpit rock" width="40" height="20">
+    
         <a href='/'>Home</a>
 
         <!-- Menu for users who are logged in -->
-        <?php if($user): ?>
-
+        <?php if ($user): ?>
             <a href='/users/logout'>Logout</a>
             <a href='/users/profile'>My Profile</a>
 	    <a href='/posts'>Read</a>
@@ -41,11 +42,17 @@
 
         <!-- Menu options for users who are not logged in -->
         <?php else: ?>
-
             <a href='/users/signup'>Sign up</a>
             <a href='/users/login'>Log in</a>
-
         <?php endif; ?>
+
+    </div>
+
+    <div id='menu_right'>
+
+        <?php if ($user): ?>
+	    Hello, <a href='/users/profile'><?php echo "$user->first_name $user->last_name" ?></a>
+	<?php endif; ?>
 
     </div>
 
