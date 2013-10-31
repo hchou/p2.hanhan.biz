@@ -1,4 +1,4 @@
-<h1>User Profile</h1>
+<h1>My Profile</h1>
 <p>
 First Name: <?=$user->first_name ?><br>
 Last Name: <?=$user->last_name ?><br>
