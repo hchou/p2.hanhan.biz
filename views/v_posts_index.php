@@ -4,7 +4,7 @@
 
 <article>
     <br>
-    <h3><?=$post['first_name'] ?> <?=$post['last_name']?> posted:</h3>
+    <h4><?=$post['first_name'] ?> <?=$post['last_name']?> posted:</h4>
 
     <p><?=$post['content'] ?></p>
 
