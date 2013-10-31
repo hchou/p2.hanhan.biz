@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/css/blubber_form.css">
 
-<h1>Login</h1>
+<h1>Member Login</h1>
 
 <form class='blubberForm' id='loginForm' method='POST' action='/users/p_login'>
     <fieldset>
