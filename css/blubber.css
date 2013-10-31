@@ -13,7 +13,7 @@ body {
 }
 
 
-h1, h2, h3, p, time {
+h1, h2, h3, h4, p, time {
     margin: 20px;
     padding: 0;
     color: #ff8a0e;
@@ -22,6 +22,7 @@ h1, h2, h3, p, time {
 p, ol, ul {
     color: #ff8a0e;
     margin-top: 0;
+    margin-left: 10px;
 }
 
 ol, ul {
