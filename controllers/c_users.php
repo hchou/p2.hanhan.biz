@@ -222,17 +222,17 @@ class users_controller extends base_controller {
         # Build update array
         # Has email changed?
         if ($_POST['email'] != $user_info[$this->user->user_id]['email']) {
-            echo "email changed! <br>";
+            #echo "email changed! <br>";
             $data['email'] = $_POST['email'];
         }
         # Has first_name changed?
         if ($_POST['first_name'] != $user_info[$this->user->user_id]['first_name']) {
-            echo "first_name changed! <br>";
+            #echo "first_name changed! <br>";
             $data['first_name'] = $_POST['first_name'];
         }
         # Has last_name changed?
         if ($_POST['last_name'] != $user_info[$this->user->user_id]['last_name']) {
-            echo "last_name changed! <br>";
+            #echo "last_name changed! <br>";
             $data['last_name'] = $_POST['last_name'];
         }
         
