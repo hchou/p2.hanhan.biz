@@ -26,6 +26,8 @@
         <?php if ($user->role < 2): ?>
             <?php if ($user->user_id == $my_user['user_id']): ?>
                 <td>Me</td>
+            <?php elseif ($my_user['role'] == 0): ?>
+                <td>Superuser</td>
             <?php else: ?>
                 <td><a href='/users/delete/<?=$my_user['user_id'] ?>'>Delete</a></td>
             <?php endif; ?>
