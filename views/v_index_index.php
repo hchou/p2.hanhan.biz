@@ -19,4 +19,7 @@
 <ul>
     <li>Admin/Superuser are allowed to delete posts</li>   
 </ul>
+
+<h3>Sample Admin Email: l.byrnison@example.com Password: password</h3>
+<h3>Sample User Email: l.scoresby@example.com Password: password</h3>
 </article>
