@@ -9,7 +9,7 @@ $().ready(function() {
             },
             last_name: {
                 required: true,
-                minlength: 2,
+                minlength: 1,
             },
             password: {
                 required: true,
@@ -73,7 +73,7 @@ $().ready(function() {
             },
             last_name: {
                 required: true,
-                minlength: 2,
+                minlength: 1,
             },
             email: {
                 required: true,
