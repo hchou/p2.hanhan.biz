@@ -112,7 +112,7 @@ textarea:focus, input:focus {
 }
 
 #menu_left {
-    width: 40%;
+    width: 45%;
     float: left;
     margin-left: 1em;
     vertical-align: text-top;
@@ -128,7 +128,7 @@ textarea:focus, input:focus {
 
 #menu_right {
     text-align: right;
-    width: 40%;
+    width: 45%;
     float: right;
     margin-right: 1em;
      vertical-align: text-top;
