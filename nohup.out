@@ -1,0 +1,6 @@
+Conky: desktop window (2c00096) is subwindow of root window (a7)
+Conky: window type - normal
+Conky: drawing to created window (0x3600002)
+Conky: drawing to double buffer
+XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0"
+      after 291506 requests (291506 known processed) with 0 events remaining.
